@@ -1,9 +1,13 @@
-import AddPhoto from "./components/AddPhoto";
+import Editor from "./components/addPhoto/Editor";
+import Document from "./components/Document";
 
 function App() {
 
   return (
-    <AddPhoto></AddPhoto>
+    <div className="flex flex-col items-center">
+      <Editor></Editor>
+      <Document></Document>
+    </div>
   )
 }
 
