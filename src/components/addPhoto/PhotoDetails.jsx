@@ -4,7 +4,7 @@ import { MdOutlineSave, MdOutlineDelete } from "react-icons/md";
 
 function PhotoDetails() {
     return ( 
-        <div className="w-full flex flex-col w-full items-center justify-center gap-4 p-4 rounded-xl shadow-lg">
+        <div className="w-full flex flex-col bg-white items-center justify-center gap-4 p-4 rounded-xl shadow-lg">
             
             <Label
                 htmlFor="dropzone-file"

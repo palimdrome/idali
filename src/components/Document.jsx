@@ -28,7 +28,7 @@ function Document() {
     };
 
     return ( 
-        <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 hidden'>
+        <div className='w-1/2 lg:w-1/2 flex flex-col items-center overflow-auto justify-center p-4 hidden lg:block'>
             <div id='document' className='relative bg-white shadow-lg' style={{width: '210mm', height: '297mm'}}>
                 {imgSrcs.map((src, index) => (
                     <img 

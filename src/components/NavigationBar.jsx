@@ -14,9 +14,9 @@ import {
 
 function NavigationBar(props) {
     return (
-        <Navbar className='w-full  pb-0 bg-[#30323d]'>
+        <Navbar className='w-full pb-0 px-0 bg-[#30323d]'>
             <NavbarBrand>
-                <img src="assets/logo-dark-mode.png" className="ml-3 h-20" alt="Flowbite React Logo" />
+                <img src="assets/logo-dark-mode.png" className="ml-3  h-16 lg:h-12" alt="Flowbite React Logo" />
             </NavbarBrand>
       </Navbar>
     );
