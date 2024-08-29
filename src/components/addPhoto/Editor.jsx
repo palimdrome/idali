@@ -5,7 +5,7 @@ import { MdAdd } from "react-icons/md";
 
 function AddPhotoButton() {
     return (
-        <Button color='light' className='w-full shadow-lg'>
+        <Button color='light' className='w-full lg:w-3/5 shadow-lg'>
             <MdAdd className="mr-2 h-5 w-5" />
             ADD A PHOTO
         </Button>

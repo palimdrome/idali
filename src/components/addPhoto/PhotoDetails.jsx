@@ -2,9 +2,10 @@ import React from 'react';
 import { FileInput, Label, TextInput, Button, Select } from 'flowbite-react';
 import { MdOutlineSave, MdOutlineDelete } from "react-icons/md";
 
+
 function PhotoDetails() {
     return ( 
-        <div className="w-full flex flex-col bg-white items-center justify-center gap-4 p-4 rounded-xl shadow-lg">
+        <div className="w-full lg:w-3/5 lg:text-xs flex flex-col bg-white items-center justify-center gap-4 p-4 rounded-xl shadow-lg">
             
             <Label
                 htmlFor="dropzone-file"
