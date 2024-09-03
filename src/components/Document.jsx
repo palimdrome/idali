@@ -51,7 +51,7 @@ function Document() {
         });
     };
     return (
-        <div className='relative w-1/2 min-h-screen flex flex-col items-center overflow-auto justify-center bg-gray-100 p-4 hidden lg:block'>
+        <div className='relative w-1/2 flex flex-col items-center overflow-auto justify-center bg-gray-100 p-4 hidden lg:block'>
             <div id='document' className='flex flex-wrap content-start bg-white shadow-lg p-6' style={{width: '210mm', height: '297mm'}}>
                 {imgSrcs2x2.map((src, index) => (
                     <img 
