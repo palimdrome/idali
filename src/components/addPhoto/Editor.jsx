@@ -54,6 +54,7 @@ function Editor() {
           id={photo.id}
           onDelete={() => handleDeletePhoto(photo.id)}
           updateHasFile={(hasFile) => updatePhotoHasFile(photo.id, hasFile)}
+          isDeletable={photoDetailsList.length > 1}
         />
       ))}
       

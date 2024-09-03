@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { FileInput, Label, TextInput, Button, Select, Tooltip } from 'flowbite-react';
 import { MdOutlineSave, MdOutlineDelete } from 'react-icons/md';
 
-function PhotoDetails({ id, onDelete, updateHasFile }) {
+function PhotoDetails({ id, onDelete, updateHasFile, isDeletable }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [hasFile, setHasFile] = useState(false);
   const fileInputRef = useRef(null);
@@ -170,7 +170,7 @@ function PhotoDetails({ id, onDelete, updateHasFile }) {
             SAVE
             <MdOutlineSave className="ml-1 h-4 w-4" />
           </Button>
-          <Button size="xs" className="bg-[#30323D] w-1/2" onClick={onDelete}>
+          <Button size="xs" className="bg-[#30323D] w-1/2" onClick={onDelete} disabled={!isDeletable}>
             DELETE
             <MdOutlineDelete className="ml-1 h-4 w-4" />
           </Button>
