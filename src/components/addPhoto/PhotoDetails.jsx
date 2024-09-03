@@ -4,7 +4,7 @@ import { FileInput, Label, TextInput, Button, Select, Tooltip } from 'flowbite-r
 import { MdOutlineSave, MdOutlineDelete } from "react-icons/md";
 
 
-function PhotoDetails() {
+function PhotoDetails({count, setCount}) {
     const [selectedFile, setSelectedFile] = useState(null); // State to manage the selected file
     const [hasFile, setHasFile] = useState(false);
     const fileInputRef = useRef(null); // Reference to the file input element
@@ -24,6 +24,7 @@ function PhotoDetails() {
                     setPreview(reader.result); // Set the image preview
                 };
                 reader.readAsDataURL(file);
+                setCount(count+1)
             } else {
                 setPreview(null); // Clear preview for non-image files
             }
@@ -45,6 +46,7 @@ function PhotoDetails() {
                 setPreview(reader.result); // Set the image preview
                 };
                 reader.readAsDataURL(file);
+                setCount(count+1)
             } else {
                 setPreview(null); // Clear preview for non-image files
             }
@@ -62,7 +64,8 @@ function PhotoDetails() {
         if (fileInputRef.current) {
             fileInputRef.current.value = ''; // Clear the file input
         }
-        };
+        setCount(count-1);
+    };
   
     const handleDragOver = (e) => {
         e.preventDefault(); // Prevent default behavior (Prevent file from being opened)
