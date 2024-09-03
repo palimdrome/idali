@@ -47,7 +47,7 @@ function Editor() {
   };
 
   return (
-    <div className="lg:w-1/2 w-full overflow-y-auto flex flex-col justify-center items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-contain">
+    <div className="lg:w-1/2 w-full overflow-y-auto flex flex-col justify-center items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-cover">
       {photoDetailsList.map((photo, index) => (
         <PhotoDetails
           key={photo.id}
@@ -56,7 +56,8 @@ function Editor() {
           updateHasFile={(hasFile) => updatePhotoHasFile(photo.id, hasFile)}
         />
       ))}
-      {/* Only enable the button if the last PhotoDetails component has a file */}
+      
+      
       <AddPhotoButton
         onAddPhoto={handleAddPhoto}
         disabled={!photoDetailsList[photoDetailsList.length - 1]?.hasFile}

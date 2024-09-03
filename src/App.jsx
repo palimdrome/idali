@@ -6,11 +6,13 @@ import NavigationBar from "./components/NavigationBar";
 function App() {
 
   return (
-    <div className='flex flex-col items-center justify-between min-h-screen max-h-screen w-screen bg-camera-pattern bg-contain lg:bg-none'>
+    <div className='flex flex-col items-center justify-between lg:items-start min-h-screen max-h-screen w-screen bg-camera-pattern bg-contain lg:bg-none'>
       <NavigationBar />
 
       <div className="flex flex-grow overflow-y-auto w-full">
-        <Editor></Editor>
+          <Editor></Editor>
+
+        
         {/* <Document></Document> */}
       </div>
       <Foot />
