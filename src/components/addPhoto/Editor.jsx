@@ -14,7 +14,7 @@ function AddPhotoButton() {
 
 function Editor() {
     return ( 
-        <div className='lg:w-1/2 overflow-y-auto flex flex-col items-center gap-5 p-4'>
+        <div className='lg:w-1/2 overflow-y-auto flex flex-col justify-center items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-contain'>
             <PhotoDetails></PhotoDetails>
             <AddPhotoButton></AddPhotoButton>
         </div>

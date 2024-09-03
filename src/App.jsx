@@ -6,7 +6,7 @@ import NavigationBar from "./components/NavigationBar";
 function App() {
 
   return (
-    <div className='flex flex-col items-center justify-between min-h-screen max-h-screen w-screen bg-camera-pattern bg-contain'>
+    <div className='flex flex-col items-center justify-between min-h-screen max-h-screen w-screen bg-camera-pattern bg-contain lg:bg-none'>
       <NavigationBar />
 
       <div className="flex flex-row h-auto overflow-y-auto w-full">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { FileInput, Label, TextInput, Button, Select } from 'flowbite-react';
+import { FileInput, Label, TextInput, Button, Select, Tooltip } from 'flowbite-react';
 import { MdOutlineSave, MdOutlineDelete } from "react-icons/md";
 
 
@@ -125,70 +125,76 @@ function PhotoDetails() {
             )}
 
             {hasFile && (
-            <div className="mt-4 text-sm text-gray-700">
-                <p>Selected File: {selectedFile.name}</p>
-            </div>
-            )}
+                <div className="flex flex-row gap-4 items-center content-center justify-center">
+                    <div className="text-sm text-gray-700">
+                        <p><p className="font-bold inline">Selected File:</p> {selectedFile.name}</p>
+                    </div>
 
-            {hasFile && (
-                <Button size="xs" className="bg-red-500 text-white mt-2" onClick={deleteFileHandler}>
-                Delete File
-                </Button>
+                    <Tooltip content='Delete file'>
+                        <Button size="xs" color='failure' className="text-white" onClick={deleteFileHandler} pill>
+                            <MdOutlineDelete className='h-4 w-4' />
+                        </Button>
+                    </Tooltip>
+                </div>
             )}
 
             {/* ID Size inputs */}
-            <div className='flex flex-row gap-2'>
-                <div>
+            { hasFile &&
+                <div className='flex flex-row gap-2'>
                     <div>
-                        <Label htmlFor="small" value="1x1 ID" />
+                        <div>
+                            <Label htmlFor="small" value="1x1 ID" />
+                        </div>
+                        <TextInput id="small" type="number" sizing="sm" />
                     </div>
-                    <TextInput id="small" type="number" sizing="sm" />
-                </div>
-                <div>
                     <div>
-                        <Label htmlFor="small" value="2x2 ID" />
+                        <div>
+                            <Label htmlFor="small" value="2x2 ID" />
+                        </div>
+                        <TextInput id="small" type="number" sizing="sm" />
                     </div>
-                    <TextInput id="small" type="number" sizing="sm" />
-                </div>
-                <div>
                     <div>
-                        <Label htmlFor="small" value="Passport" />
+                        <div>
+                            <Label htmlFor="small" value="Passport" />
+                        </div>
+                        <TextInput id="small" type="number" sizing="sm" />
                     </div>
-                    <TextInput id="small" type="number" sizing="sm" />
-                </div>
-            </div>
+                </div>}
 
             {/* Document preferences inputs */}
-            <div className='flex flex-row gap-2'>
-                <div className='w-1/2'>
-                    <div>
-                        <Label htmlFor="small" value="Document size" />
+            { hasFile &&
+                <div className='flex flex-row gap-2 '>
+                    <div className='w-1/2'>
+                        <div>
+                            <Label htmlFor="small" value="Document size" />
+                        </div>
+                        {/* <TextInput id="small" type="number" sizing="sm" /> */}
+                        <Select id="paper-sizes" sizing="sm">
+                            <option>A4</option>
+                            <option>Letter</option>
+                            <option>Legal</option>
+                        </Select>
                     </div>
-                    {/* <TextInput id="small" type="number" sizing="sm" /> */}
-                    <Select id="paper-sizes" sizing="sm">
-                        <option>A4</option>
-                        <option>Letter</option>
-                        <option>Legal</option>
-                    </Select>
-                </div>
-                <div className='w-1/2'>
-                    <div>
-                        <Label htmlFor="small" value="No. of copies" />
+                    <div className='w-1/2'>
+                        <div>
+                            <Label htmlFor="small" value="No. of copies" />
+                        </div>
+                        <TextInput id="small" type="number" sizing="sm" />
                     </div>
-                    <TextInput id="small" type="number" sizing="sm" />
-                </div>
-            </div>
+                </div>}
 
-            <div className='flex flex-row w-full gap-2 items-center justify-around px-8 mt-4 mb-2'>
-                <Button size="xs" className='bg-[#E6AF2E] w-1/2'>
-                    SAVE
-                    <MdOutlineSave className='ml-1 h-4 w-4' />
-                </Button>
-                <Button size="xs" className='bg-[#30323D] w-1/2'>
-                    DELETE
-                    <MdOutlineDelete className='ml-1 h-4 w-4' />
-                </Button>
-            </div>
+            { hasFile &&
+                <div className='flex flex-row w-full gap-2 items-center justify-around px-8 mt-4 mb-2'>
+                    <Button size="xs" className='bg-[#E6AF2E] w-1/2'>
+                        SAVE
+                        <MdOutlineSave className='ml-1 h-4 w-4' />
+                    </Button>
+                    <Button size="xs" className='bg-[#30323D] w-1/2'>
+                        DELETE
+                        <MdOutlineDelete className='ml-1 h-4 w-4' />
+                    </Button>
+                </div>
+            }
 
         </div>
      );
