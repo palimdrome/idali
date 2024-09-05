@@ -7,7 +7,7 @@ function AddPhotoButton({ onAddPhoto, disabled }) {
   return (
     <Button
       color="light"
-      className="w-full lg:w-3/5 shadow-lg"
+      className="w-1/4 border-0 shadow-lg shadow-zinc-400"
       onClick={onAddPhoto}
       disabled={disabled}
     >
@@ -47,7 +47,7 @@ function Editor() {
   };
 
   return (
-    <div className="lg:w-1/2 lg:max-w-1/2 w-full flex flex-col overflow-y-auto items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-cover">
+    <div className=" w-full flex flex-col  overflow-y-auto items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-cover">
       {photoDetailsList.map((photo, index) => (
         <PhotoDetails
           key={photo.id}

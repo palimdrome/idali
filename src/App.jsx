@@ -11,9 +11,6 @@ function App() {
 
       <div className="flex flex-grow overflow-y-auto w-full">
           <Editor></Editor>
-
-        
-        {/* <Document></Document> */}
       </div>
       <Foot />
     </div>

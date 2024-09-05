@@ -56,7 +56,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, isDeletable }) {
   };
 
   return (
-    <div className="w-full lg:w-3/5 lg:text-sm lg:p-6 flex flex-col bg-white items-center justify-center gap-4 p-4 rounded-xl shadow-lg">
+    <div className="w-full lg:w-1/3 lg:text-sm lg:p-6 flex flex-col bg-white items-center justify-center gap-4 p-4 rounded-xl shadow-lg shadow-zinc-400">
       {!hasFile ? (
         <Label
           onDragOver={handleDragOver}

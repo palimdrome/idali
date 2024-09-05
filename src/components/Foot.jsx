@@ -74,7 +74,7 @@ function Foot(props) {
     }
 
     return (
-        <Footer className="lg:w-1/2 lg:justify-start relative bg-[#30323d] px-5 py-8 lg:py-4 m-0 rounded-none flex flex-row justify-center gap-3 w-full">
+        <Footer className="lg:justify-start relative bg-[#30323d] px-5 py-8 lg:py-4 m-0 rounded-none flex flex-row justify-center gap-3 w-full">
 
             {/* To be hidden from view but still accessible for getElementById */}
             <Document imgSrcs2x2={imgSrcs2x2} imgSrcs1x1={imgSrcs1x1}/>
