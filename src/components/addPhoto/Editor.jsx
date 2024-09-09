@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PhotoDetails from './PhotoDetails';
 import { Button } from 'flowbite-react';
 import { MdAdd } from 'react-icons/md';
@@ -50,15 +50,19 @@ function Editor({ onInput }) {
   const handleSavePhoto = (id, image) => {
     console.log("Data received from PhotoDetails component: ", image);
     let file = image.file;
-    let numOf1x1 = image.numOf1x1;
-    let numOf2x2 = image.numOf2x2;
-    let numOfPassport = image.numOfPassport;
+    let numOf1x1 = parseInt(image.numOf1x1);
+    let numOf2x2 = parseInt(image.numOf2x2);
+    let numOfPassport = parseInt(image.numOfPassport);
     setPhotoDetailsList((prevList) =>
       prevList.map((photo) => (photo.id === id ? { ...photo, file, numOf1x1, numOf2x2, numOfPassport } : photo))
     );
   }
 
   console.log("This is the new PhotoDetailsList: ", photoDetailsList);
+
+  useEffect(() => {
+    onInput([photoDetailsList]);
+  }, [photoDetailsList]);
 
   return (
     <div className="lg:w-1/2 overflow-y-auto flex flex-col justify-center items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-contain">

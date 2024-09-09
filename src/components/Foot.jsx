@@ -7,18 +7,28 @@ import Document from "./Document";
 function Foot({ data }) {
 
     const [openModal, setOpenModal] = useState(false);
+    const [documentData, setDocumentData] = useState([]); // State to hold images
+
+    useEffect(() => {
+        if (Array.isArray(data) && data.length > 0) {
+            setDocumentData(data); // Update state when data changes
+        }
+    }, [data]);
+
+    //  data = [
+    //          [ 0: id, file, numberof1x1, numberof2x2, numberofpassport ],
+    //          [ 1: id, file, numberof1x1, numberof2x2, numberofpassport ],
+    //          [ 2: id, file, numberof1x1, numberof2x2, numberofpassport ]
+    //         ]
+
+    console.log("This is the data from Editor: ");
+    console.log(data);
 
     const preferences = {
         docSize: "a4",
         docOrientation: "portrait",
         numOfCopies: 1,
-        images: [
-            {
-                url: "src/assets/image-1.JPG",
-                numOf1x1: 9,
-                numOf2x2: 3
-            }
-        ]
+        images: documentData
     }
 
     const [imgData, setImgData] = useState("");
@@ -56,20 +66,15 @@ function Foot({ data }) {
         html2canvas(input, {scale: 2}).then(canvas => {
             const imgData = canvas.toDataURL('image/png'); // the whole canvas as image
             setImgData(imgData);
-        });
-    };
-
-    const createDocument = () => {
-        useEffect(() => {
-            <Document images={preferences.images} />
-        }, [preferences]);
+        }).catch(error => console.log(error));
     };
 
     return (
         <Footer className="relative bg-[#30323d] px-5 py-8 lg:py-4 m-0 rounded-none flex flex-row justify-center gap-3 w-full">
 
             {/* To be hidden from view but still accessible for getElementById */}
-            <Document images={preferences.images} />
+            {Array.isArray(documentData) && documentData.length > 0 && (<Document images={preferences.images} />)}
+
             <Button size='md' className="bg-white text-[#30323d] w-1/2" onClick={() => setOpenModal(true)}>PREVIEW</Button>
             <Modal show={openModal} onClose={() => setOpenModal(false)}>
                 <Modal.Header>Preview document</Modal.Header>

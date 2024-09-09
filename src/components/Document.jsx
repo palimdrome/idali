@@ -5,72 +5,73 @@ function Document({ images }) {
     // Restructures user input to get the image sources and the number of 2x2 and 1x1 for each image source
     // Example: 2x2: [["src/image.png", 3]] (Meaning: 3 2x2 copies of image.png)
     // Example: 1x1: [["src/image.png", 6]] (Meaning: 6 1x1 copies of image.png)
-    const imageSrcs = () => {
-        let collectionOf2x2 = [];
-        let collectionOf1x1 = [];
-        images.map((image) => {
-            if (image.numOf2x2 > 0 || image.numOf1x1 > 0) {
-                if (image.numOf2x2 > 0) {
-                    let foo = [image.url, image.numOf2x2];
-                    collectionOf2x2.push(foo);
+
+    console.table("These are the images passed from Foot to Document: ", images);
+
+    const imageSrcs = (images) => {
+        try {
+            var collectionOf2x2 = [];
+            var collectionOf1x1 = [];
+            images[0].forEach((image) => {
+                if (image.file) {
+                    console.log("More than 1 2x2 and 1x1...");
+                    if (image.numOf2x2 > 0) {
+                        console.log("More than 1 2x2...");
+                        let foo = [image.file, image.numOf2x2];
+                        collectionOf2x2.push(foo);
+                    };
+                    if (image.numOf1x1 > 0) {
+                        console.log("More than 1 1x1...");
+                        let bar = [image.file, image.numOf1x1];
+                        collectionOf1x1.push(bar);
+                    };
                 };
-                if (image.numOf1x1 > 0) {
-                    let bar = [image.url, image.numOf1x1];
-                    collectionOf1x1.push(bar);
-                };
-            };
-        });
-        return [collectionOf2x2, collectionOf1x1];
+            });
+            console.log("Restructured 2x2 collection: ", collectionOf2x2);
+            console.log("Restructured 1x1 collection: ", collectionOf1x1);
+            
+            return [collectionOf2x2, collectionOf1x1];
+        } catch (error) {
+            console.error("Error in restructuring user input to get the image sources: ", error);
+            return [[], []];
+        }
     };
+
+    const [image2x2Srcs, image1x1Srcs] = imageSrcs(images);
 
     // Dynamically creates image elements of 2x2 images
-    const images2x2 = [];
-    for (let i = 0; i < imageSrcs()[0].length; i++) {
-        for (let j = 0; j < imageSrcs()[0][i][1]; j++) {
-            images2x2.push(
-                <img 
-                    key={`image2x2-${i}-${j}`}
-                    src={imageSrcs()[0][i][0]}
-                    alt={`2x2 ID ${i}-${j}`}
-                    className='border border-black'
-                    style={{width: '48mm', height: '48mm', borderWidth: '0.0078125mm'}}
-                />
-            )
-        }
-    }
+    const images2x2 = image2x2Srcs.flatMap(([src, count], index) => Array.from({ length: count }, (_, j) => (
+        <img
+            key={`image2x2-${index}-${j}`}
+            src={src}
+            alt={`2x2 ID ${index}-${j}`}
+            className='border border-black'
+            style={{width: '48mm', height: '48mm', borderWidth:'0.0078125mm'}}
+        />
+    )));
 
     // Dynamically creates image elements of 1x1 images
-    const images1x1 = [];
-    for (let i = 0; i < imageSrcs()[1].length; i++) {
-        for (let j = 0; j < imageSrcs()[1][i][1]; j++) {
-            images1x1.push(
-                <img 
-                    key={`image1x1-${i}-${j}`}
-                    src={imageSrcs()[1][i][0]}
-                    alt={`2x2 ID ${i}-${j}`}
-                    className='border border-black'
-                    style={{width: '24mm', height: '24mm', borderWidth: '0.0078125mm'}}
-                />
-            )
-        }
-    };
+    const images1x1 = image1x1Srcs.flatMap(([src, count], index) => Array.from({ length: count }, (_, j) => (
+        <img
+            key={`image1x1-${index}-${j}`}
+            src={src}
+            alt={`1x1 ID ${index}-${j}`}
+            className='border border-black'
+            style={{width: '24mm', height:'24mm', borderWidth: '0.0078125mm'}}
+        />
+    )));
     
     // Groups 1x1 images into 4 (square)
     const images1x1By4 = [];
     for (let i = 0; i < Math.ceil(images1x1.length / 4); i++) {
-        const innerElements = [];
-        let j = 0;
-        while (j < 4 && i * 4 + j < images1x1.length) {
-            innerElements.push(images1x1[j]);
-            j++;
-        };
+        const innerElements = images1x1.slice(i * 4, i * 4 + 4);
         images1x1By4.push(
-            <div key={`imageGroup1x1-${i}-${j}`} className='flex flex-wrap content-start' style={{width: '48mm', height: '48mm'}}>
+            <div key={`imageGroup1x1-${i}`} className='flex flex-wrap content-start' style={{ width: '48mm', height: '48mm' }}>
                 {innerElements}
             </div>
         );
     }
-
+    
     return (
         <div className='relative w-1/2 min-h-screen flex flex-col items-center overflow-auto justify-center bg-gray-100 p-4 lg:block'
         style={{position: 'absolute', top: '-9999px', left:'-9999px'}}>

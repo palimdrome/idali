@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FileInput, Label, TextInput, Button, Select, Tooltip } from 'flowbite-react';
 import { MdOutlineSave, MdOutlineDelete } from 'react-icons/md';
 
 function PhotoDetails({ id, onDelete, updateHasFile, onSave }) {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fileAsImgSrc, setFileAsImgSrc] = useState(null);
   const [hasFile, setHasFile] = useState(false);
   const fileInputRef = useRef(null);
   const [preview, setPreview] = useState(null);
@@ -69,11 +70,35 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave }) {
     })
   }
 
+  // const handleFileChange = (file) => {
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setImageSrc(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   };
+  // };
+
+  useEffect(() => {
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFileAsImgSrc(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      setFileAsImgSrc(null);
+    }
+  }, [selectedFile])
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("This is the File format of File: ", selectedFile);
+    console.log("This is the URL format of File: ", fileAsImgSrc);
     const image = {
       id: id,
-      file: selectedFile,
+      file: fileAsImgSrc,
       numOf1x1: formValues.numOf1x1,
       numOf2x2: formValues.numOf2x2,
       numOfPassport: formValues.numOfPassport
