@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FileInput, Label, TextInput, Button, Select, Tooltip } from 'flowbite-react';
 import { MdOutlineSave, MdOutlineDelete } from 'react-icons/md';
 
-function PhotoDetails({ id, onDelete, updateHasFile, onSave }) {
+function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileAsImgSrc, setFileAsImgSrc] = useState(null);
   const [hasFile, setHasFile] = useState(false);
@@ -70,16 +70,6 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave }) {
     })
   }
 
-  // const handleFileChange = (file) => {
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setImageSrc(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   };
-  // };
-
   useEffect(() => {
     if (selectedFile) {
       const reader = new FileReader();
@@ -107,7 +97,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave }) {
   };
 
   return (
-    <form className="w-full lg:w-3/5 lg:text-sm lg:p-6 flex flex-col bg-white items-center justify-center gap-4 p-4 rounded-xl shadow-lg" onSubmit={handleSubmit}>
+    <form className="w-full lg:w-1/3 lg:text-sm lg:p-6 flex flex-col bg-white items-center justify-center gap-4 p-4 rounded-xl shadow-lg shadow-zinc-400" onSubmit={handleSubmit}>
       {!hasFile ? (
         <Label
           onDragOver={handleDragOver}
@@ -221,7 +211,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave }) {
             SAVE
             <MdOutlineSave className="ml-1 h-4 w-4" />
           </Button>
-          <Button size="xs" className="bg-[#30323D] w-1/2" onClick={onDelete}>
+          <Button size="xs" className="bg-[#30323D] w-1/2" onClick={onDelete} disabled={!isDeletable}>
             DELETE
             <MdOutlineDelete className="ml-1 h-4 w-4" />
           </Button>

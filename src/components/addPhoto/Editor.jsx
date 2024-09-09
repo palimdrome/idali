@@ -7,7 +7,7 @@ function AddPhotoButton({ onAddPhoto, disabled }) {
   return (
     <Button
       color="light"
-      className="w-full lg:w-3/5 shadow-lg"
+      className="w-full lg:w-1/4 border-0 shadow-lg shadow-zinc-400"
       onClick={onAddPhoto}
       disabled={disabled}
     >
@@ -65,7 +65,7 @@ function Editor({ onInput }) {
   }, [photoDetailsList]);
 
   return (
-    <div className="lg:w-1/2 overflow-y-auto flex flex-col justify-center items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-contain">
+    <div className=" w-full flex flex-col  overflow-y-auto items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-cover">
       {photoDetailsList.map((photo, index) => (
         <PhotoDetails
           key={photo.id}
@@ -73,9 +73,9 @@ function Editor({ onInput }) {
           onDelete={() => handleDeletePhoto(photo.id)}
           updateHasFile={(hasFile) => updatePhotoHasFile(photo.id, hasFile)}
           onSave={(id, image) => handleSavePhoto(id, image)}
+          isDeletable={photoDetailsList.length > 1}
         />
       ))}
-      {/* Only enable the button if the last PhotoDetails component has a file */}
       <AddPhotoButton
         onAddPhoto={handleAddPhoto}
         disabled={!photoDetailsList[photoDetailsList.length - 1]?.hasFile}
