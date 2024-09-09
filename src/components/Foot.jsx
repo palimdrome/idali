@@ -4,7 +4,7 @@ import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 import Document from "./Document";
 
-function Foot() {
+function Foot({ data }) {
 
     const [openModal, setOpenModal] = useState(false);
 
@@ -14,7 +14,6 @@ function Foot() {
         numOfCopies: 1,
         images: [
             {
-                id: 1,
                 url: "src/assets/image-1.JPG",
                 numOf1x1: 9,
                 numOf2x2: 3

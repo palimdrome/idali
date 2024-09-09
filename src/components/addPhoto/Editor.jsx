@@ -17,7 +17,7 @@ function AddPhotoButton({ onAddPhoto, disabled }) {
   );
 }
 
-function Editor() {
+function Editor({ onInput }) {
   const [photoDetailsList, setPhotoDetailsList] = useState([
     { id: Date.now(), hasFile: false },
   ]);
@@ -46,6 +46,20 @@ function Editor() {
     );
   };
 
+  // Function to save the inputs taken form PhotoDetails components into the Editor component
+  const handleSavePhoto = (id, image) => {
+    console.log("Data received from PhotoDetails component: ", image);
+    let file = image.file;
+    let numOf1x1 = image.numOf1x1;
+    let numOf2x2 = image.numOf2x2;
+    let numOfPassport = image.numOfPassport;
+    setPhotoDetailsList((prevList) =>
+      prevList.map((photo) => (photo.id === id ? { ...photo, file, numOf1x1, numOf2x2, numOfPassport } : photo))
+    );
+  }
+
+  console.log("This is the new PhotoDetailsList: ", photoDetailsList);
+
   return (
     <div className="lg:w-1/2 overflow-y-auto flex flex-col justify-center items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-contain">
       {photoDetailsList.map((photo, index) => (
@@ -54,6 +68,7 @@ function Editor() {
           id={photo.id}
           onDelete={() => handleDeletePhoto(photo.id)}
           updateHasFile={(hasFile) => updatePhotoHasFile(photo.id, hasFile)}
+          onSave={(id, image) => handleSavePhoto(id, image)}
         />
       ))}
       {/* Only enable the button if the last PhotoDetails component has a file */}

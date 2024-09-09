@@ -2,11 +2,17 @@ import React, { useState, useRef } from 'react';
 import { FileInput, Label, TextInput, Button, Select, Tooltip } from 'flowbite-react';
 import { MdOutlineSave, MdOutlineDelete } from 'react-icons/md';
 
-function PhotoDetails({ id, onDelete, updateHasFile }) {
+function PhotoDetails({ id, onDelete, updateHasFile, onSave }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [hasFile, setHasFile] = useState(false);
   const fileInputRef = useRef(null);
   const [preview, setPreview] = useState(null);
+
+  const [formValues, setFormValues] = useState({
+    numOf1x1: 0,
+    numOf2x2: 0,
+    numOfPassport: 0,
+  })
 
   const fileInputHandler = (e) => {
     const file = e.target.files[0];
@@ -55,8 +61,28 @@ function PhotoDetails({ id, onDelete, updateHasFile }) {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const image = {
+      id: id,
+      file: selectedFile,
+      numOf1x1: formValues.numOf1x1,
+      numOf2x2: formValues.numOf2x2,
+      numOfPassport: formValues.numOfPassport
+    };
+    onSave(id, image);
+  };
+
   return (
-    <div className="w-full lg:w-3/5 lg:text-sm lg:p-6 flex flex-col bg-white items-center justify-center gap-4 p-4 rounded-xl shadow-lg">
+    <form className="w-full lg:w-3/5 lg:text-sm lg:p-6 flex flex-col bg-white items-center justify-center gap-4 p-4 rounded-xl shadow-lg" onSubmit={handleSubmit}>
       {!hasFile ? (
         <Label
           onDragOver={handleDragOver}
@@ -133,21 +159,21 @@ function PhotoDetails({ id, onDelete, updateHasFile }) {
         <div className="flex flex-row gap-2">
           <div>
             <Label htmlFor="small" value="1x1 ID" />
-            <TextInput id="small" type="number" sizing="sm" />
+            <TextInput id="small" name="numOf1x1" type="number" sizing="sm" value={formValues.numOf1x1} onChange={handleInputChange} />
           </div>
           <div>
             <Label htmlFor="small" value="2x2 ID" />
-            <TextInput id="small" type="number" sizing="sm" />
+            <TextInput id="small" name="numOf2x2" type="number" sizing="sm" value={formValues.numOf2x2} onChange={handleInputChange} />
           </div>
           <div>
             <Label htmlFor="small" value="Passport" />
-            <TextInput id="small" type="number" sizing="sm" />
+            <TextInput id="small" name="numOfPassport" type="number" sizing="sm" value={formValues.numOfPassport} onChange={handleInputChange} />
           </div>
         </div>
       )}
 
       {/* Document preferences inputs */}
-      {hasFile && (
+      {/* {hasFile && (
         <div className="flex flex-row gap-2">
           <div className="w-1/2">
             <Label htmlFor="small" value="Document size" />
@@ -162,11 +188,11 @@ function PhotoDetails({ id, onDelete, updateHasFile }) {
             <TextInput id="small" type="number" sizing="sm" />
           </div>
         </div>
-      )}
+      )} */}
 
       {hasFile && (
         <div className="flex flex-row w-full gap-2 items-center justify-around px-8 mt-4 mb-2">
-          <Button size="xs" className="bg-[#E6AF2E] w-1/2">
+          <Button size="xs" className="bg-[#E6AF2E] w-1/2" type="submit">
             SAVE
             <MdOutlineSave className="ml-1 h-4 w-4" />
           </Button>
@@ -176,7 +202,7 @@ function PhotoDetails({ id, onDelete, updateHasFile }) {
           </Button>
         </div>
       )}
-    </div>
+    </form>
   );
 }
 
