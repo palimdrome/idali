@@ -45,6 +45,13 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
     setHasFile(false);
     setPreview(null);
     updateHasFile(false);
+
+    setFormValues({
+      numOf1x1: 0,
+      numOf2x2: 0,
+      numOfPassport: 0,
+    });
+
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
