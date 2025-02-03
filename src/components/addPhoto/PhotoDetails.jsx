@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FileInput, Label, TextInput, Button, Select, Tooltip } from 'flowbite-react';
+import { FileInput, Label, TextInput, Button, Select, Tooltip, ToggleSwitch } from 'flowbite-react';
 import { MdOutlineSave, MdOutlineDelete } from 'react-icons/md';
 
 function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
@@ -14,6 +14,8 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
     numOf2x2: 0,
     numOfPassport: 0,
   })
+
+  const [removeBg, setRemoveBg] = useState(false);
 
   const fileInputHandler = (e) => {
     const file = e.target.files[0];
@@ -98,7 +100,8 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
       file: fileAsImgSrc,
       numOf1x1: formValues.numOf1x1,
       numOf2x2: formValues.numOf2x2,
-      numOfPassport: formValues.numOfPassport
+      numOfPassport: formValues.numOfPassport,
+      removeBg: removeBg
     };
     onSave(id, image);
   };
@@ -194,23 +197,10 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
         </div>
       )}
 
-      {/* Document preferences inputs */}
-      {/* {hasFile && (
-        <div className="flex flex-row gap-2">
-          <div className="w-1/2">
-            <Label htmlFor="small" value="Document size" />
-            <Select id="paper-sizes" sizing="sm">
-              <option>A4</option>
-              <option>Letter</option>
-              <option>Legal</option>
-            </Select>
-          </div>
-          <div className="w-1/2">
-            <Label htmlFor="small" value="No. of copies" />
-            <TextInput id="small" type="number" sizing="sm" />
-          </div>
-        </div>
-      )} */}
+      {/* Remove BG? */}
+      {hasFile && (
+          <ToggleSwitch checked={removeBg} label="Remove background" onChange={setRemoveBg} />
+      )}
 
       {hasFile && (
         <div className="flex flex-row w-full gap-2 items-center justify-around px-8 mt-4 mb-2">

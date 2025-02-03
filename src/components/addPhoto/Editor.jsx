@@ -75,8 +75,9 @@ function Editor({ onInput, onSet }) {
     let numOf1x1 = parseInt(image.numOf1x1);
     let numOf2x2 = parseInt(image.numOf2x2);
     let numOfPassport = parseInt(image.numOfPassport);
+    let removeBg = image.removeBg;
     setPhotoDetailsList((prevList) =>
-      prevList.map((photo) => (photo.id === id ? { ...photo, file, numOf1x1, numOf2x2, numOfPassport } : photo))
+      prevList.map((photo) => (photo.id === id ? { ...photo, file, numOf1x1, numOf2x2, numOfPassport, removeBg } : photo))
     );
   }
 
