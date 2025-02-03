@@ -4,7 +4,7 @@ import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 import Document from "./Document";
 
-function Foot({ data }) {
+function Foot({ data, pageSize }) {
 
     const [openModal, setOpenModal] = useState(false);
     const [documentData, setDocumentData] = useState([]); // State to hold images
@@ -20,12 +20,18 @@ function Foot({ data }) {
     //          [ 1: id, file, numberof1x1, numberof2x2, numberofpassport ],
     //          [ 2: id, file, numberof1x1, numberof2x2, numberofpassport ]
     //         ]
-
     console.log("This is the data from Editor: ");
     console.log(data);
 
+    // Deconstructuring the pageSize since its values can't be accessed using dot notation
+    const {size, width, height} = pageSize || { size: "a4", width: 210, height: 297 };
+    console.log("This is the page size set from Editor: ");
+    console.log(pageSize);
+
     const preferences = {
-        docSize: "a4",
+        docSize: size,
+        docWidth: width,
+        docHeight: height,
         docOrientation: "portrait",
         numOfCopies: 1,
         images: documentData
@@ -43,8 +49,8 @@ function Foot({ data }) {
                 format: preferences.docSize
             });
 
-            const pdfWidth = 210;
-            const pdfHeight = 297;
+            const pdfWidth = preferences.docWidth;
+            const pdfHeight = preferences.docHeight;
 
             const canvasWidth = canvas.width;
             const canvasHeight = canvas.height;

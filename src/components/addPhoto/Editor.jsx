@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PhotoDetails from './PhotoDetails';
-import { Button } from 'flowbite-react';
+import { Button, Dropdown, Label } from 'flowbite-react';
 import { MdAdd } from 'react-icons/md';
 
 function AddPhotoButton({ onAddPhoto, disabled }) {
@@ -17,10 +17,32 @@ function AddPhotoButton({ onAddPhoto, disabled }) {
   );
 }
 
-function Editor({ onInput }) {
+function Editor({ onInput, onSet }) {
   const [photoDetailsList, setPhotoDetailsList] = useState([
     { id: Date.now(), hasFile: false },
   ]);
+
+  const [pageSize, setPageSize] = useState({
+    size: "a4",
+    width: 210,
+    height: 297
+  });
+
+  // Function containing dropdwon component to set the page size of the document
+  function ConfigPaperSettings({ defaultPageSizeLabel }) {
+    return (
+      <div className="flex items-center space-x-2 w-1/2 px-1">
+        <Label htmlFor="paper-size">Paper Size:</Label>
+
+        {/* Dropdown with selected option as label */}
+        <Dropdown label={defaultPageSizeLabel}>
+          <Dropdown.Item onClick={() => setPageSize({size: "a4", width: 210, height: 297})}>A4</Dropdown.Item>
+          <Dropdown.Item onClick={() => setPageSize({size: "letter", width: 216, height: 279})}>Letter</Dropdown.Item>
+          <Dropdown.Item onClick={() => setPageSize({size: "legal", width: 216, height: 356})}>Legal</Dropdown.Item>
+        </Dropdown>
+      </div>
+    );
+  }
 
   // Function to add a new PhotoDetails component
   const handleAddPhoto = () => {
@@ -60,12 +82,25 @@ function Editor({ onInput }) {
 
   console.log("This is the new PhotoDetailsList: ", photoDetailsList);
 
+  // passes the data to Foot
   useEffect(() => {
     onInput([photoDetailsList]);
   }, [photoDetailsList]);
 
+  // passes the page size data to Foot
+  useEffect(() => {
+    onSet(pageSize);
+  });
+
   return (
-    <div className=" w-full flex flex-col  overflow-y-auto items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-cover">
+    <div className=" w-full flex flex-col overflow-y-auto items-center gap-5 p-4 lg:bg-camera-pattern lg:bg-cover">
+      
+      <div className='w-full lg:w-1/3 lg:text-sm lg:p-4 flex flex-col bg-white items-start justify-start p-2 rounded-xl shadow-lg shadow-zinc-400'>
+        <ConfigPaperSettings
+          defaultPageSizeLabel={pageSize.size.charAt(0).toUpperCase() + pageSize.size.substring(1).toLowerCase()}
+        />
+      </div>
+
       {photoDetailsList.map((photo, index) => (
         <PhotoDetails
           key={photo.id}
