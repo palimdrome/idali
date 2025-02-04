@@ -34,12 +34,18 @@ function Editor({ onInput, onSet }) {
 
   // Function containing dropdwon component to set the page size of the document
   function ConfigPaperSettings({ defaultPageSizeLabel }) {
+    const customTheme = {
+      floating: {
+        target: 'bg-[#30323d] text-white hover:bg-blue-600',
+      },
+    };
+
     return (
       <div className="flex items-center space-x-2 w-1/2 px-1">
         <Label htmlFor="paper-size">Paper Size:</Label>
 
         {/* Dropdown with selected option as label */}
-        <Dropdown label={defaultPageSizeLabel}>
+        <Dropdown label={defaultPageSizeLabel} theme={customTheme}>
           <Dropdown.Item onClick={() => setPageSize({size: "a4", width: 210, height: 297})}>A4</Dropdown.Item>
           <Dropdown.Item onClick={() => setPageSize({size: "letter", width: 216, height: 279})}>Letter</Dropdown.Item>
           <Dropdown.Item onClick={() => setPageSize({size: "legal", width: 216, height: 356})}>Legal</Dropdown.Item>
