@@ -20,13 +20,13 @@ function Foot({ data, pageSize }) {
     //          [ 1: id, file, numberof1x1, numberof2x2, numberofpassport ],
     //          [ 2: id, file, numberof1x1, numberof2x2, numberofpassport ]
     //         ]
-    console.log("This is the data from Editor: ");
-    console.log(data);
+    // console.log("This is the data from Editor: ");
+    // console.log(data);
 
     // Deconstructuring the pageSize since its values can't be accessed using dot notation
     const {size, width, height} = pageSize || { size: "a4", width: 210, height: 297 };
-    console.log("This is the page size set from Editor: ");
-    console.log(pageSize);
+    // console.log("This is the page size set from Editor: ");
+    // console.log(pageSize);
 
     const preferences = {
         docSize: size,
@@ -72,7 +72,7 @@ function Foot({ data, pageSize }) {
         html2canvas(input, {scale: 2}).then(canvas => {
             const imgData = canvas.toDataURL('image/png'); // the whole canvas as image
             setImgData(imgData);
-        }).catch(error => console.log(error));
+        }).catch(error => console.error(error));
     };
 
     return (

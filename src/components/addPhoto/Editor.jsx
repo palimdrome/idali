@@ -28,14 +28,24 @@ function Editor({ onInput, onSet }) {
     height: 297
   });
 
+  useEffect (() => {
+    console.log("Page size updated:", pageSize.size);
+  }, [pageSize]);
+
   // Function containing dropdwon component to set the page size of the document
   function ConfigPaperSettings({ defaultPageSizeLabel }) {
+    const customTheme = {
+      floating: {
+        target: 'bg-[#30323d] text-white hover:bg-blue-600',
+      },
+    };
+
     return (
       <div className="flex items-center space-x-2 w-1/2 px-1">
         <Label htmlFor="paper-size">Paper Size:</Label>
 
         {/* Dropdown with selected option as label */}
-        <Dropdown label={defaultPageSizeLabel}>
+        <Dropdown label={defaultPageSizeLabel} theme={customTheme}>
           <Dropdown.Item onClick={() => setPageSize({size: "a4", width: 210, height: 297})}>A4</Dropdown.Item>
           <Dropdown.Item onClick={() => setPageSize({size: "letter", width: 216, height: 279})}>Letter</Dropdown.Item>
           <Dropdown.Item onClick={() => setPageSize({size: "legal", width: 216, height: 356})}>Legal</Dropdown.Item>
@@ -67,7 +77,6 @@ function Editor({ onInput, onSet }) {
       prevList.map((photo) => (photo.id === id ? { ...photo, hasFile } : photo))
     );
   };
-
   
   const removeBackground = async (image) => {
     const formData = new FormData();
@@ -97,34 +106,48 @@ function Editor({ onInput, onSet }) {
 
   // Function to save the inputs taken form PhotoDetails components into the Editor component
   const handleSavePhoto = async(id, image) => {
-    console.log("Data received from PhotoDetails component: ", image);
+    try {
+      // console.log("Data received from PhotoDetails component: ", image);
 
-    let file = image.file;
+      let file = image.file;
 
-    // Create a copy of the image data
-    let processedImage = { ...image };
+      // Create a copy of the image data
+      let processedImage = { ...image };
 
-    // Check if background removal is requested
-    if (image.removeBg) {
-      // Perform background removal and wait for result
-      const bgRemovedUrl = await removeBackground(image.imgFile);
-      processedImage = {
-        ...processedImage,  // Keep existing properties
-        file: bgRemovedUrl  // Update the file property
-      };
-      file = bgRemovedUrl;
+      // Check if background removal is requested
+      if (image.removeBg) {
+        // Perform background removal and wait for result
+        const bgRemovedUrl = await removeBackground(image.imgFile);
+        processedImage = {
+          ...processedImage,  // Keep existing properties
+          file: bgRemovedUrl  // Update the file property
+        };
+        file = bgRemovedUrl;
+      }
+
+      let numOf1x1 = parseInt(image.numOf1x1);
+      let numOf2x2 = parseInt(image.numOf2x2);
+      let numOfPassport = parseInt(image.numOfPassport);
+      let removeBg = image.removeBg;
+      setPhotoDetailsList((prevList) =>
+        prevList.map((photo) => (photo.id === id ? { ...photo, file, numOf1x1, numOf2x2, numOfPassport, removeBg } : photo))
+      );
+
+      console.log("Photo saved successfully!", {
+        id,
+        file: file instanceof File ? file.name : "Processed URL",
+        numOf1x1,
+        numOf2x2,
+        numOfPassport,
+        removeBg
+      });
     }
-
-    let numOf1x1 = parseInt(image.numOf1x1);
-    let numOf2x2 = parseInt(image.numOf2x2);
-    let numOfPassport = parseInt(image.numOfPassport);
-    let removeBg = image.removeBg;
-    setPhotoDetailsList((prevList) =>
-      prevList.map((photo) => (photo.id === id ? { ...photo, file, numOf1x1, numOf2x2, numOfPassport, removeBg } : photo))
-    );
+    catch (error) {
+      console.error("Error saving photo:", error)
+    }
   }
 
-  console.log("This is the new PhotoDetailsList: ", photoDetailsList);
+  // console.log("This is the new PhotoDetailsList: ", photoDetailsList);
 
   // passes the data to Foot
   useEffect(() => {

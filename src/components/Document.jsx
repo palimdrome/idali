@@ -6,7 +6,7 @@ function Document({ images }) {
     // Example: 2x2: [["src/image.png", 3]] (Meaning: 3 2x2 copies of image.png)
     // Example: 1x1: [["src/image.png", 6]] (Meaning: 6 1x1 copies of image.png)
 
-    console.table("These are the images passed from Foot to Document: ", images);
+    // console.table("These are the images passed from Foot to Document: ", images);
 
     const imageSrcs = (images) => {
         try {
@@ -14,21 +14,21 @@ function Document({ images }) {
             var collectionOf1x1 = [];
             images[0].forEach((image) => {
                 if (image.file) {
-                    console.log("More than 1 2x2 and 1x1...");
+                    // console.log("More than 1 2x2 and 1x1...");
                     if (image.numOf2x2 > 0) {
-                        console.log("More than 1 2x2...");
+                        // console.log("More than 1 2x2...");
                         let foo = [image.file, image.numOf2x2];
                         collectionOf2x2.push(foo);
                     };
                     if (image.numOf1x1 > 0) {
-                        console.log("More than 1 1x1...");
+                        // console.log("More than 1 1x1...");
                         let bar = [image.file, image.numOf1x1];
                         collectionOf1x1.push(bar);
                     };
                 };
             });
-            console.log("Restructured 2x2 collection: ", collectionOf2x2);
-            console.log("Restructured 1x1 collection: ", collectionOf1x1);
+            // console.log("Restructured 2x2 collection: ", collectionOf2x2);
+            // console.log("Restructured 1x1 collection: ", collectionOf1x1);
             
             return [collectionOf2x2, collectionOf1x1];
         } catch (error) {

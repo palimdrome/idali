@@ -91,14 +91,10 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
     }
   }, [selectedFile])
 
-  useEffect(() => {
-    console.log('Selected file: ', selectedFile)
-  }, [selectedFile])
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("This is the File format of File: ", selectedFile);
-    console.log("This is the URL format of File: ", fileAsImgSrc);
+    // console.log("This is the File format of File: ", selectedFile);
+    // console.log("This is the URL format of File: ", fileAsImgSrc);
     const image = {
       id: id,
       file: fileAsImgSrc,
