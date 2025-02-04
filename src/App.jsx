@@ -3,7 +3,6 @@ import Editor from "./components/addPhoto/Editor";
 import Document from "./components/Document";
 import Foot from "./components/Foot";
 import NavigationBar from "./components/NavigationBar";
-import ImageBackgroundRemover from "./components/ImageBackgroundRemover";
 
 function App() {
 
