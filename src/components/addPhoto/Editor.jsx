@@ -68,10 +68,53 @@ function Editor({ onInput, onSet }) {
     );
   };
 
+  
+  const removeBackground = async (image) => {
+    const formData = new FormData();
+    formData.append('image_file', image);
+  
+    try {
+      const response = await fetch('https://api.remove.bg/v1.0/removebg', {
+        method: 'POST',
+        headers: {
+          'X-Api-Key': 'CEnivjw7f74M16uTdLxnNxmB',
+        },
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.errors[0].title);
+      }
+  
+      const blob = await response.blob();
+      return URL.createObjectURL(blob);
+    } catch (error) {
+      console.error('Remove.bg API error:', error);
+      throw error;
+    }
+  };
+
   // Function to save the inputs taken form PhotoDetails components into the Editor component
-  const handleSavePhoto = (id, image) => {
+  const handleSavePhoto = async(id, image) => {
     console.log("Data received from PhotoDetails component: ", image);
+
     let file = image.file;
+
+    // Create a copy of the image data
+    let processedImage = { ...image };
+
+    // Check if background removal is requested
+    if (image.removeBg) {
+      // Perform background removal and wait for result
+      const bgRemovedUrl = await removeBackground(image.imgFile);
+      processedImage = {
+        ...processedImage,  // Keep existing properties
+        file: bgRemovedUrl  // Update the file property
+      };
+      file = bgRemovedUrl;
+    }
+
     let numOf1x1 = parseInt(image.numOf1x1);
     let numOf2x2 = parseInt(image.numOf2x2);
     let numOfPassport = parseInt(image.numOfPassport);

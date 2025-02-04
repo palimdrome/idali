@@ -91,6 +91,10 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
     }
   }, [selectedFile])
 
+  useEffect(() => {
+    console.log('Selected file: ', selectedFile)
+  }, [selectedFile])
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("This is the File format of File: ", selectedFile);
@@ -98,6 +102,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
     const image = {
       id: id,
       file: fileAsImgSrc,
+      imgFile: selectedFile,
       numOf1x1: formValues.numOf1x1,
       numOf2x2: formValues.numOf2x2,
       numOfPassport: formValues.numOfPassport,
