@@ -67,7 +67,6 @@ function Editor({ onInput, onSet }) {
       prevList.map((photo) => (photo.id === id ? { ...photo, hasFile } : photo))
     );
   };
-
   
   const removeBackground = async (image) => {
     const formData = new FormData();
