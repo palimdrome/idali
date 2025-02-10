@@ -127,10 +127,10 @@ function Editor({ onInput, onSet }) {
 
       let numOf1x1 = parseInt(image.numOf1x1);
       let numOf2x2 = parseInt(image.numOf2x2);
-      let numOfPassport = parseInt(image.numOfPassport);
+      let numOf1p5x3 = parseInt(image.numOf1p5x3);
       let removeBg = image.removeBg;
       setPhotoDetailsList((prevList) =>
-        prevList.map((photo) => (photo.id === id ? { ...photo, file, numOf1x1, numOf2x2, numOfPassport, removeBg } : photo))
+        prevList.map((photo) => (photo.id === id ? { ...photo, file, numOf1x1, numOf2x2, numOf1p5x3, removeBg } : photo))
       );
 
       console.log("Photo saved successfully!", {
@@ -138,7 +138,7 @@ function Editor({ onInput, onSet }) {
         file: file instanceof File ? file.name : "Processed URL",
         numOf1x1,
         numOf2x2,
-        numOfPassport,
+        numOf1p5x3,
         removeBg
       });
     }

@@ -12,7 +12,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
   const [formValues, setFormValues] = useState({
     numOf1x1: 0,
     numOf2x2: 0,
-    numOfPassport: 0,
+    numOf1p5x3: 0,
   })
 
   const [removeBg, setRemoveBg] = useState(false);
@@ -51,7 +51,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
     setFormValues({
       numOf1x1: 0,
       numOf2x2: 0,
-      numOfPassport: 0,
+      numOf1p5x3: 0,
     });
 
     if (fileInputRef.current) {
@@ -101,7 +101,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
       imgFile: selectedFile,
       numOf1x1: formValues.numOf1x1,
       numOf2x2: formValues.numOf2x2,
-      numOfPassport: formValues.numOfPassport,
+      numOf1p5x3: formValues.numOf1p5x3,
       removeBg: removeBg
     };
     onSave(id, image);
@@ -192,8 +192,8 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
             <TextInput id="small" name="numOf2x2" type="number" sizing="sm" value={formValues.numOf2x2} onChange={handleInputChange} />
           </div>
           <div>
-            <Label htmlFor="small" value="Passport" />
-            <TextInput id="small" name="numOfPassport" type="number" sizing="sm" value={formValues.numOfPassport} onChange={handleInputChange} />
+            <Label htmlFor="small" value="1.5x3 ID" />
+            <TextInput id="small" name="numOf1p5x3" type="number" sizing="sm" value={formValues.numOf1p5x3} onChange={handleInputChange} />
           </div>
         </div>
       )}

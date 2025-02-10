@@ -12,32 +12,33 @@ function Document({ images }) {
         try {
             var collectionOf2x2 = [];
             var collectionOf1x1 = [];
+            var collectionOf1p5x3 = [];
             images[0].forEach((image) => {
                 if (image.file) {
                     // console.log("More than 1 2x2 and 1x1...");
                     if (image.numOf2x2 > 0) {
-                        // console.log("More than 1 2x2...");
                         let foo = [image.file, image.numOf2x2];
                         collectionOf2x2.push(foo);
                     };
                     if (image.numOf1x1 > 0) {
-                        // console.log("More than 1 1x1...");
                         let bar = [image.file, image.numOf1x1];
                         collectionOf1x1.push(bar);
                     };
+                    if (image.numOf1p5x3 > 0) {
+                        let bar = [image.file, image.numOf1p5x3];
+                        collectionOf1p5x3.push(bar);
+                    };
                 };
             });
-            // console.log("Restructured 2x2 collection: ", collectionOf2x2);
-            // console.log("Restructured 1x1 collection: ", collectionOf1x1);
             
-            return [collectionOf2x2, collectionOf1x1];
+            return [collectionOf2x2, collectionOf1x1, collectionOf1p5x3];
         } catch (error) {
             console.error("Error in restructuring user input to get the image sources: ", error);
-            return [[], []];
+            return [[], [], []];
         }
     };
 
-    const [image2x2Srcs, image1x1Srcs] = imageSrcs(images);
+    const [image2x2Srcs, image1x1Srcs, image1p5x3Srcs] = imageSrcs(images);
 
     // Dynamically creates image elements of 2x2 images
     const images2x2 = image2x2Srcs.flatMap(([src, count], index) => Array.from({ length: count }, (_, j) => (
@@ -71,11 +72,23 @@ function Document({ images }) {
             </div>
         );
     }
+
+    // Dynamically creates image elements of 1.5x3 images
+    const images1p5x3 = image1p5x3Srcs.flatMap(([src, count], index) => Array.from({ length: count }, (_, j) => (
+        <img
+            key={`image1p5x3-${index}-${j}`}
+            src={src}
+            alt={`1.5x3 ID ${index}-${j}`}
+            className='border border-black'
+            style={{width: '76.2mm', height: '38.1mm', borderWidth:'0.0078125mm'}}
+        />
+    )));
     
     return (
         <div className='relative w-1/2 min-h-screen flex flex-col items-center overflow-auto justify-center bg-gray-100 p-4 lg:block'
         style={{position: 'absolute', top: '-9999px', left:'-9999px'}}>
             <div id='document' className='flex flex-wrap content-start bg-white shadow-lg p-6' style={{width: '210mm', height: '297mm'}}>
+                {images1p5x3}
                 {images2x2}
                 {images1x1By4}
             </div>

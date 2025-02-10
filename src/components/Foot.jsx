@@ -9,24 +9,17 @@ function Foot({ data, pageSize }) {
     const [openModal, setOpenModal] = useState(false);
     const [documentData, setDocumentData] = useState([]); // State to hold images
 
+    const date = new Date();
+    const currentDate = String(date.getMonth()+1).padStart(2,"0") + "-" + String(date.getDate()).padStart(2, '0') + "-" + date.getFullYear() + "-" + date.getHours() + date.getMinutes() + date.getSeconds();
+
     useEffect(() => {
         if (Array.isArray(data) && data.length > 0) {
             setDocumentData(data); // Update state when data changes
         }
     }, [data]);
 
-    //  data = [
-    //          [ 0: id, file, numberof1x1, numberof2x2, numberofpassport ],
-    //          [ 1: id, file, numberof1x1, numberof2x2, numberofpassport ],
-    //          [ 2: id, file, numberof1x1, numberof2x2, numberofpassport ]
-    //         ]
-    // console.log("This is the data from Editor: ");
-    // console.log(data);
-
     // Deconstructuring the pageSize since its values can't be accessed using dot notation
     const {size, width, height} = pageSize || { size: "a4", width: 210, height: 297 };
-    // console.log("This is the page size set from Editor: ");
-    // console.log(pageSize);
 
     const preferences = {
         docSize: size,
@@ -63,7 +56,7 @@ function Foot({ data, pageSize }) {
             } else {
                 pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
             }
-            pdf.save('images.pdf');
+            pdf.save(`${currentDate}.pdf`);
         });
     };
 
