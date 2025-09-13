@@ -13,6 +13,7 @@ function Document({ images }) {
             var collectionOf2x2 = [];
             var collectionOf1x1 = [];
             var collectionOf1p5x3 = [];
+            var collectionOf3p5x5 = [];
             images[0].forEach((image) => {
                 if (image.file) {
                     // console.log("More than 1 2x2 and 1x1...");
@@ -28,17 +29,21 @@ function Document({ images }) {
                         let bar = [image.file, image.numOf1p5x3];
                         collectionOf1p5x3.push(bar);
                     };
+                    if (image.numOf3p5x5 > 0) {
+                        let bar = [image.file, image.numOf3p5x5];
+                        collectionOf3p5x5.push(bar);
+                    };
                 };
             });
             
-            return [collectionOf2x2, collectionOf1x1, collectionOf1p5x3];
+            return [collectionOf2x2, collectionOf1x1, collectionOf1p5x3, collectionOf3p5x5];
         } catch (error) {
             console.error("Error in restructuring user input to get the image sources: ", error);
             return [[], [], []];
         }
     };
 
-    const [image2x2Srcs, image1x1Srcs, image1p5x3Srcs] = imageSrcs(images);
+    const [image2x2Srcs, image1x1Srcs, image1p5x3Srcs, image3p5x5Srcs] = imageSrcs(images);
 
     // Dynamically creates image elements of 2x2 images
     const images2x2 = image2x2Srcs.flatMap(([src, count], index) => Array.from({ length: count }, (_, j) => (
@@ -83,14 +88,26 @@ function Document({ images }) {
             style={{width: '76.2mm', height: '38.1mm', borderWidth:'0.0078125mm'}}
         />
     )));
+
+    // Dynamically creates image elements of 3.5x5 images
+    const images3p5x5 = image3p5x5Srcs.flatMap(([src, count], index) => Array.from({ length: count }, (_, j) => (
+        <img
+            key={`image3p5x5-${index}-${j}`}
+            src={src}
+            alt={`3.5x5 ID ${index}-${j}`}
+            className='border border-black'
+            style={{width: '88.9mm', height: '127mm', borderWidth:'0.0078125mm'}}
+        />
+    )));
     
     return (
         <div className='relative w-1/2 min-h-screen flex flex-col items-center overflow-auto justify-center bg-gray-100 p-4 lg:block'
         style={{position: 'absolute', top: '-9999px', left:'-9999px'}}>
             <div id='document' className='flex flex-wrap content-start bg-white shadow-lg p-6' style={{width: '210mm', height: '297mm'}}>
-                {images1p5x3}
                 {images2x2}
                 {images1x1By4}
+                {images1p5x3}
+                {images3p5x5}
             </div>
         </div>
      );

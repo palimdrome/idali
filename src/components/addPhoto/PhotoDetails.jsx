@@ -13,6 +13,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
     numOf1x1: 0,
     numOf2x2: 0,
     numOf1p5x3: 0,
+    numOf3p5x5: 0
   })
 
   const [removeBg, setRemoveBg] = useState(false);
@@ -52,6 +53,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
       numOf1x1: 0,
       numOf2x2: 0,
       numOf1p5x3: 0,
+      numOf3p5x5: 0
     });
 
     if (fileInputRef.current) {
@@ -93,8 +95,6 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("This is the File format of File: ", selectedFile);
-    // console.log("This is the URL format of File: ", fileAsImgSrc);
     const image = {
       id: id,
       file: fileAsImgSrc,
@@ -102,6 +102,7 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
       numOf1x1: formValues.numOf1x1,
       numOf2x2: formValues.numOf2x2,
       numOf1p5x3: formValues.numOf1p5x3,
+      numOf3p5x5: formValues.numOf3p5x5,
       removeBg: removeBg
     };
     onSave(id, image);
@@ -194,6 +195,10 @@ function PhotoDetails({ id, onDelete, updateHasFile, onSave, isDeletable }) {
           <div>
             <Label htmlFor="small" value="1.5x3 ID" />
             <TextInput id="small" name="numOf1p5x3" type="number" sizing="sm" value={formValues.numOf1p5x3} onChange={handleInputChange} />
+          </div>
+          <div>
+            <Label htmlFor="small" value="3.5x5 ID" />
+            <TextInput id="small" name="numOf3p5x5" type="number" sizing="sm" value={formValues.numOf3p5x5} onChange={handleInputChange} />
           </div>
         </div>
       )}
