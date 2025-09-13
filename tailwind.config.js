@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'camera-pattern': "url('assets/bg.png')"
+        'camera-pattern': "url('/assets/bg.png')"
       }
     },
   },
